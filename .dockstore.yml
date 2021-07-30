@@ -1,0 +1,5 @@
+version: 1.2
+workflows:
+   - name: CDPHEnextclade
+     subclass: WDL
+     primaryDescriptorPath: CDPHEnextclad/CDPHEnextclade.wdl
