@@ -6,11 +6,15 @@ workflow CDPHEnextclade {
         File multifasta
         String sample_id
         String out_dir
+        File covid_genome
+        File covid_gff
     }
 
     call nextclade {
         input:
             multifasta = multifasta,
+            ref = covid_genome,
+            gff = covid_gff,
             sample_id = sample_id
     }
 
@@ -34,12 +38,14 @@ task nextclade {
 
     input {
         File multifasta
+        File ref
+        File gff
         String sample_id
     }
 
     command {
         nextclade --version > VERSION
-        nextclade --input-fasta ${multifasta} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
+        nextclade --input-fasta ${multifasta} --input-root-seq ${ref} --input-gene-map ${gff} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
     }
 
     output {
