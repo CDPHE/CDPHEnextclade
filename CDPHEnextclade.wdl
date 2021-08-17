@@ -50,7 +50,7 @@ task nextclade {
     }
 
     runtime {
-        docker: "neherlab/nextclade"
+        docker: "nextstrain/nextclade"
         memory: "16 GB"
         cpu: 4
         disks: "local-disk 200 HDD"
