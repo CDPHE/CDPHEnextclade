@@ -51,7 +51,7 @@ task nextclade {
 
     command {
         nextclade --version > VERSION
-        nextclade --input-fasta ${multifasta} --input-root-seq ${ref} --input-tree ${tree} --input-qc-config ${qc}--input-gene-map ${gff} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
+        nextclade --input-fasta ${multifasta} --input-root-seq ${ref} --input-tree ${tree} --input-qc-config ${qc} --input-gene-map ${gff} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
     }
 
     output {
