@@ -7,7 +7,7 @@ workflow CDPHEnextclade {
         String sample_id
         String out_dir
         File covid_genome
-        File covid_gff
+        File gene_map
         File nextclade_qc
         File covid_ref_tree
     }
@@ -16,7 +16,7 @@ workflow CDPHEnextclade {
         input:
             multifasta = multifasta,
             ref = covid_genome,
-            gff = covid_gff,
+            gff = gene_map,
             qc = nextclade_qc,
             tree = covid_ref_tree,
             sample_id = sample_id
