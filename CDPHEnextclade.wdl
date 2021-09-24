@@ -96,7 +96,7 @@ task pangolin {
     }
 
     runtime {
-        docker: "nextstrain/nextclade"
+        docker: "staphb/pangolin"
         memory: "16 GB"
         cpu: 4
         disks: "local-disk 200 HDD"
