@@ -21,13 +21,20 @@ workflow CDPHEnextclade {
             tree = covid_ref_tree,
             sample_id = sample_id
     }
+    
+    call pangolin {
+        input:
+            multifasta = multifasta,
+            sample_id = sample_id
+    }
 
     call transfer {
       input:
           out_dir = out_dir,
           nextclade_json = nextclade.nextclade_json,
           auspice_json = nextclade.auspice_json,
-          nextclade_csv = nextclade.nextclade_csv
+          nextclade_csv = nextclade.nextclade_csv,
+          pangolin_lineage = pangolin.lineage
     }
 
     output {
@@ -35,6 +42,8 @@ workflow CDPHEnextclade {
         File nextclade_json = nextclade.nextclade_json
         File auspice_json = nextclade.auspice_json
         File nextclade_csv = nextclade.nextclade_csv
+        String pangolin_version = pangolin.pangolin_version
+        File pangolin_lineage = pangolin.lineage
     }
 }
 
@@ -69,12 +78,38 @@ task nextclade {
     }
 }
 
+task pangolin {
+
+    input {
+        File multifasta
+        String sample_id
+    }
+
+    command {
+        pangolin --version > VERSION
+        pangolin --outfile ${sample_id}_pangolin_lineage_report.csv ${multifasta}
+    }
+
+    output {
+        String pangolin_version = read_string("VERSION")
+        File lineage = "${sample_id}_pangolin_lineage_report.csv"
+    }
+
+    runtime {
+        docker: "nextstrain/nextclade"
+        memory: "16 GB"
+        cpu: 4
+        disks: "local-disk 200 HDD"
+    }
+}
+
 task transfer {
     input {
         String out_dir
         File auspice_json
         File nextclade_csv
         File nextclade_json
+        File pangolin_lineage
     }
 
     String outdir = sub(out_dir, "/$", "")
@@ -84,6 +119,7 @@ task transfer {
         gsutil -m cp ~{nextclade_json} ~{outdir}/nextclade_out/
         gsutil -m cp ~{auspice_json} ~{outdir}/nextclade_out/
         gsutil -m cp ~{nextclade_csv} ~{outdir}/nextclade_out/
+        gsutil -m cp ~{pangolin_lineage} ~{outdir}/pangolin_out/
 
     >>>
 
