@@ -9,6 +9,7 @@ workflow CDPHEnextclade {
         File covid_genome
         File gene_map
         File nextclade_qc
+        File covid_properties
         File covid_ref_tree
     }
 
@@ -19,6 +20,7 @@ workflow CDPHEnextclade {
             gff = gene_map,
             qc = nextclade_qc,
             tree = covid_ref_tree,
+            properties = covid_properties,
             sample_id = sample_id
     }
     
@@ -55,12 +57,13 @@ task nextclade {
         File gff
         File qc
         File tree
+        File properties
         String sample_id
     }
 
     command {
         nextclade --version > VERSION
-        nextclade --input-fasta ${multifasta} --input-root-seq ${ref} --input-tree ${tree} --input-qc-config ${qc} --input-gene-map ${gff} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
+        nextclade run --input-fasta ${multifasta} --input-root-seq ${ref} --input-tree ${tree} --input-qc-config ${qc} --input-gene-map ${gff} --input-virus-properties ${properties} --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
     }
 
     output {
