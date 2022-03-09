@@ -64,7 +64,7 @@ task nextclade {
         docker: "nextstrain/nextclade"
         memory: "16 GB"
         cpu: 4
-        disks: "local-disk 200 HDD"
+        disks: "local-disk 500 HDD"
     }
 }
 
@@ -89,7 +89,7 @@ task pangolin {
         docker: "staphb/pangolin"
         memory: "16 GB"
         cpu: 4
-        disks: "local-disk 200 HDD"
+        disks: "local-disk 500 HDD"
     }
 }
 
@@ -117,6 +117,6 @@ task transfer {
         docker: "theiagen/utility:1.0"
         memory: "16 GB"
         cpu: 4
-        disks: "local-disk 10 SSD"
+        disks: "local-disk 100 SSD"
     }
 }
