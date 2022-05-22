@@ -77,7 +77,7 @@ task pangolin {
 
     command {
         pangolin --version > VERSION
-        pangolin --outfile ${sample_id}_pangolin_lineage_report.csv ${multifasta}
+        pangolin --skip-scorpio --outfile ${sample_id}_pangolin_lineage_report.csv ${multifasta}
     }
 
     output {
