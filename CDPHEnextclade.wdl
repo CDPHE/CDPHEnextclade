@@ -50,7 +50,7 @@ task nextclade {
 
         nextclade --version > VERSION
         nextclade dataset get --name='sars-cov-2' --reference='MN908947' --output-dir='data/sars-cov-2'
-        nextclade run --input-fasta ${multifasta} --input-dataset data/sars-cov-2 --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json
+        nextclade run --input-dataset data/sars-cov-2 --output-json ${sample_id}_nextclade.json --output-csv ${sample_id}_nextclade.csv --output-tree ${sample_id}_nextclade.auspice.json ${multifasta}
     }
 
     output {
